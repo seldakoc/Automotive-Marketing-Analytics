@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>DriveBack — Customer Intelligence</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">D</span><div><strong>DriveBack</strong><small>Sales Intelligence</small></div></div>
+      <nav id="nav">
+        <button class="nav-item active" data-page="dashboard"><span>◫</span> Dashboard</button>
+        <button class="nav-item" data-page="customers"><span>◎</span> Customers</button>
+        <button class="nav-item" data-page="leads"><span>↗</span> Smart Leads <b id="leadBadge">0</b></button>
+        <button class="nav-item" data-page="inventory"><span>◇</span> Vehicle Content</button>
+        <button class="nav-item" data-page="media"><span>▷</span> Media Studio</button>
+      </nav>
+      <div class="flow-card">
+        <small>SALES MOTION</small>
+        <div><i>1</i> Analysis</div><div><i>2</i> Communication</div><div><i>3</i> Content</div><div><i>4</i> Media</div>
+      </div>
+      <div class="offline"><span></span> Local & private</div>
+    </aside>
+
+    <main>
+      <header>
+        <div><p class="eyebrow">DEALERSHIP COMMAND CENTER</p><h1 id="pageTitle">Good morning, Alex</h1></div>
+        <div class="header-actions"><label class="search">⌕ <input id="globalSearch" placeholder="Search customers or vehicles"></label><button class="avatar">AM</button></div>
+      </header>
+
+      <section class="page active" id="dashboard">
+        <div class="hero">
+          <div><span class="pill">AI-POWERED FOLLOW-UP</span><h2>Your next sale is already<br>in your customer history.</h2><p>DriveBack finds repeat-buying patterns and tells your team who to contact, when, and how.</p><button class="primary" data-jump="leads">View today's opportunities →</button></div>
+          <div class="hero-orbit"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="car-shape">◢</div><span class="signal s1">Customer</span><span class="signal s2">Product</span><span class="signal s3">Lead</span></div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="grid-main">
+          <div class="panel"><div class="panel-head"><div><small>ANALYSIS</small><h3>Customers to contact</h3></div><button class="text-btn" data-jump="leads">View all</button></div><div id="priorityList"></div></div>
+          <div class="panel"><div class="panel-head"><div><small>SALES PIPELINE</small><h3>Lead → Product → Customer</h3></div></div><div class="funnel"><div class="stage"><span>01</span><b>Lead</b><small>Pattern detected</small></div><em>→</em><div class="stage"><span>02</span><b>Product</b><small>Best match</small></div><em>→</em><div class="stage"><span>03</span><b>Customer</b><small>Personal contact</small></div></div><div class="mini-note">The system connects purchase timing with the right vehicle and communication action.</div></div>
+        </div>
+      </section>
+
+      <section class="page" id="customers">
+        <div class="section-top"><div><p>Complete purchase history stored locally</p></div><button class="primary" id="addCustomerBtn">+ Add customer</button></div>
+        <div class="panel table-panel"><div class="filter-row"><input id="customerSearch" placeholder="Search by name, phone or vehicle"><select id="customerFilter"><option value="all">All customers</option><option value="due">Due for contact</option><option value="soon">Upcoming</option></select></div><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Last vehicle</th><th>Purchases</th><th>Buying cycle</th><th>Last purchase</th><th>Status</th><th></th></tr></thead><tbody id="customerTable"></tbody></table></div></div>
+      </section>
+
+      <section class="page" id="leads">
+        <div class="section-top"><div><p>Prioritized from customer purchase patterns</p></div><select id="leadSort"><option value="score">Highest score</option><option value="overdue">Most overdue</option></select></div>
+        <div class="lead-layout"><div id="leadCards" class="lead-cards"></div><aside class="panel action-plan" id="leadDetail"><div class="empty-state">Select a lead to view the recommended action.</div></aside></div>
+      </section>
+
+      <section class="page" id="inventory">
+        <div class="section-top"><div><p>Content your team can use in every customer conversation</p></div><button class="primary" id="addVehicleBtn">+ Add vehicle</button></div>
+        <div class="vehicle-grid" id="vehicleGrid"></div>
+      </section>
+
+      <section class="page" id="media">
+        <div class="studio-layout">
+          <div class="promo-screen" id="promoScreen">
+            <div class="promo-bg"></div><div class="speed-lines"><i></i><i></i><i></i><i></i></div><div class="promo-road"><i></i><i></i><i></i></div><div class="promo-logo">DRIVEBACK MOTORS</div>
+            <div class="promo-content"><span id="promoKicker">THE ROAD IS CALLING</span><h2 id="promoTitle">Meet your next drive.</h2><p id="promoCopy">Performance, comfort, and technology — chosen for you.</p></div>
+            <div class="promo-car" id="promoCar"><span class="headlight"></span><span class="wheel w1"></span><span class="wheel w2"></span></div>
+            <div class="promo-controls"><button id="promoPlay">▶ Play 30s Ad</button><div class="progress"><i id="promoProgress"></i></div><time id="promoTime">00:00 / 00:30</time></div>
+          </div>
+          <div class="panel storyboard"><small>MEDIA</small><h3>30-second campaign</h3><p>A ready-to-play local advertisement introducing your dealership and vehicles.</p><div id="sceneList"></div><div class="media-tip"><b>Use it anywhere</b><span>Play this full-screen in the showroom, record it, or use the script for social media.</span></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="customerModal"><form class="modal" id="customerForm"><button type="button" class="modal-x" data-close>×</button><p class="eyebrow">NEW CUSTOMER</p><h2>Add customer history</h2><div class="form-grid"><label>Full name<input name="name" required placeholder="e.g. Daniel Carter"></label><label>Phone<input name="phone" required placeholder="+40 7xx xxx xxx"></label><label>Email<input name="email" type="email" placeholder="name@example.com"></label><label>Last vehicle<input name="vehicle" required placeholder="e.g. Atlas X5"></label><label>Last purchase date<input name="lastPurchase" type="date" required></label><label>Total purchases<input name="purchases" type="number" min="1" value="1" required></label><label>Average buying cycle (years)<input name="cycle" type="number" min="1" max="15" value="3" required></label><label>Preferred contact<select name="contact"><option>Phone call</option><option>Home visit</option><option>Send a gift</option><option>Email</option></select></label></div><button class="primary full" type="submit">Save customer</button></form></div>
+  <div class="toast" id="toast"></div>
+  <script src="data/dataset.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
